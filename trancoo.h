@@ -14,6 +14,7 @@
 #include <string.h>
 #include <gsl/gsl_matrix.h>
 #include "structs.h"
+#include "coords_helper.h"
 
 coords* trancoo(coords *crystcoo, gsl_matrix *Mat);
 
