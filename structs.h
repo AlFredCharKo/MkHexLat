@@ -30,19 +30,16 @@ typedef struct {
 } coords;
 
 typedef struct {
-    double u_latt_a;
-    double u_latt_b;
-    double u_latt_c;
+    vec u_latt;
     int nh;
     int nk;
     int nl;
-    double u_angle_a;
-    double u_angle_b;
-    double u_angle_g;
+    vec u_angle;
     double displac;
+    vec hex_origin;
+    double hex_side;
     char *parfile;
     char *outfile1;
-    char *outfile2;
     int nuatoms;
     atom **u_atom;
 } parameters;

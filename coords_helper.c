@@ -52,15 +52,15 @@ int cp_coords(const coords *source, coords *dest) {
     
         // check that source is allocated, else exit function with error
     if (source == NULL) {
-        return (EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
         // check that destination is allocated, else exit function with error
     if (dest == NULL) {
-        return (EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
         // check that destination has been allocated for at least as many atoms as in source, else exit with error
     if (dest->nat < source->nat) {
-        return (EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
     
     for (i=i; i<source->nat; i++) {
@@ -77,8 +77,29 @@ int cp_coords(const coords *source, coords *dest) {
     dest->boxL.z = source->boxL.z;
     
     
-    return (EXIT_SUCCESS);
+    return EXIT_SUCCESS;
 }
+
+int move2center(coords *given, vec new_origin) {
+    int i = 0;
+    
+    if (given == NULL) {
+        printf("\n***   move2center: given == NULL");
+        return EXIT_FAILURE;
+    } else if (given->nat <= 0) {
+        printf("\n*** move2center: given->nat <= 0. Nothing to do");
+        return EXIT_SUCCESS;
+    }
+    
+    for (i=0; i<given->nat; i++) {
+        given->atom_ptr[i]->pnt.x = given->atom_ptr[i]->pnt.x - new_origin.x;
+        given->atom_ptr[i]->pnt.y = given->atom_ptr[i]->pnt.y - new_origin.y;
+        given->atom_ptr[i]->pnt.z = given->atom_ptr[i]->pnt.z - new_origin.z;
+    }
+    
+    return EXIT_SUCCESS;
+}
+
 
 
 int free_coords(coords *given) {
@@ -89,5 +110,5 @@ int free_coords(coords *given) {
     }
     free(given->atom_ptr);
     free(given);
-    return (EXIT_SUCCESS);
+    return EXIT_SUCCESS;
 }

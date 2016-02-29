@@ -22,9 +22,9 @@ coords* gencoo(parameters *pars) {
     
     //initialize crystcoo to hold coordinates, atomic numbers and element symbols for crystal in crystal's native coordinates
     nuatoms = pars->nuatoms * pars->nh * pars->nk * pars->nl;
-    boxL.x = (double)pars->nh * pars->u_latt_a;
-    boxL.y = (double)pars->nk * pars->u_latt_b;
-    boxL.z = (double)pars->nl * pars->u_latt_c;
+    boxL.x = (double)pars->nh * pars->u_latt.x;
+    boxL.y = (double)pars->nk * pars->u_latt.y;
+    boxL.z = (double)pars->nl * pars->u_latt.z;
     crystcoo = init_coords(crystcoo, nuatoms, boxL);
     
 

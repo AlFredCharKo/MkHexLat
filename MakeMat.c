@@ -14,17 +14,17 @@ gsl_matrix *MakeMat(parameters *pars) {
     double volume;
     
     //	real space length of lattice to be produced
-    caxes[0]=pars->nh * pars->u_latt_a;
-    caxes[1]=pars->nk * pars->u_latt_b;
-    caxes[2]=pars->nl * pars->u_latt_c;
+    caxes[0]=pars->nh * pars->u_latt.x;
+    caxes[1]=pars->nk * pars->u_latt.y;
+    caxes[2]=pars->nl * pars->u_latt.z;
     //  real space cosine values of unit cell angles
-    cosvals[0]=cos(pars->u_angle_a / 180.0 * M_PI);
-    cosvals[1]=cos(pars->u_angle_b / 180.0 * M_PI);
-    cosvals[2]=cos(pars->u_angle_g / 180.0 * M_PI);
+    cosvals[0]=cos(pars->u_angle.x / 180.0 * M_PI);
+    cosvals[1]=cos(pars->u_angle.y / 180.0 * M_PI);
+    cosvals[2]=cos(pars->u_angle.z / 180.0 * M_PI);
     //  real space sine values of unit cell angles
-    sinvals[0]=sin(pars->u_angle_a / 180.0 * M_PI);
-    sinvals[1]=sin(pars->u_angle_b / 180.0 * M_PI);
-    sinvals[2]=sin(pars->u_angle_g / 180.0 * M_PI);
+    sinvals[0]=sin(pars->u_angle.x / 180.0 * M_PI);
+    sinvals[1]=sin(pars->u_angle.y / 180.0 * M_PI);
+    sinvals[2]=sin(pars->u_angle.z / 180.0 * M_PI);
     
     //	real space volume of unit cell
     volume = caxes[0] * caxes[1] * caxes[2];

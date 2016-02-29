@@ -10,22 +10,15 @@
 
 int write_coo(char *filename, coords *coo) {
     FILE *FP;
-    char *filename_ptr = NULL;
     int i=0;
     
     printf("write_coo: filename = %s",filename);
     
     if (coo == NULL) return EXIT_FAILURE;
-    
-    // make filename from prefix filename
-    filename_ptr = malloc((strlen(filename)+4) * sizeof(char));
-    strcpy(filename_ptr, filename);
-    strcat(filename_ptr, ".coo");
-
-    
-    FP=fopen(filename_ptr, "wt");
+       
+    FP=fopen(filename, "wt");
     if (FP == NULL) {
-        printf("\n***   write_coo:Could not open <%s>.", filename_ptr);
+        printf("\n***   write_coo:Could not open <%s>.", filename);
         return EXIT_FAILURE;
     }
     
@@ -38,7 +31,6 @@ int write_coo(char *filename, coords *coo) {
     
     printf("\n***write_coo: here!!!");
     fclose(FP);
-    free(filename_ptr);
     
     return EXIT_SUCCESS;
 }

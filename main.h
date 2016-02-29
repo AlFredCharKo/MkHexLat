@@ -25,6 +25,7 @@
 #include "gencoo.h"
 #include "trancoo.h"
 #include "cut_hex.h"
+#include "append_filename.h"
 #include "write_coo.h"
 #include "write_gnuplot.h"
 #include "write_pdb.h"

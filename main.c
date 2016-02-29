@@ -12,6 +12,7 @@ int main(int argc, const char * argv[]) {
     parameters *pars=NULL;      //pointer to be malloced to point to struct parameters holding all paramteres read from parfile
     gsl_matrix *Mat=NULL;		//pointer to gsl_matrix to be malloced to hold conversion Matrix elements calculated from unit cell parameters
     char *parfile;
+    char *filename;
     coords *crystcoo=NULL;
     coords *cartcoo=NULL;
     coords *hexcoo=NULL;
@@ -32,19 +33,36 @@ int main(int argc, const char * argv[]) {
     print_matrix(Mat);
     
     crystcoo=gencoo(pars);
-    write_coo(pars->outfile1, crystcoo);
+    filename = append_filename(pars->outfile1, ".cryst", ".coo");
+    write_coo(filename, crystcoo);
     
     cartcoo=trancoo(crystcoo, Mat);
-    write_coo(pars->outfile2, cartcoo);
-    write_pdb(pars->outfile2, cartcoo);
-    write_gnuplot(pars->outfile2, cartcoo);
+    free(filename);
+    filename = append_filename(pars->outfile1, ".cart", ".coo");
+    write_coo(filename, cartcoo);
+    free(filename);
+    filename = append_filename(pars->outfile1, ".cart", ".pdb");
+    write_pdb(filename, cartcoo);
+    free(filename);
+    filename = append_filename(pars->outfile1, ".cart", ".gnu");
+    write_gnuplot(filename, cartcoo);
+    free(filename);
     
     hexcoo=cut_hex(cartcoo, pars);
-    write_coo(pars->outfile2, hexcoo);
-    write_pdb(pars->outfile2, hexcoo);
-    write_gnuplot(pars->outfile2, hexcoo);
+    filename = append_filename(pars->outfile1, ".hex", ".coo");
+    write_coo(filename, hexcoo);
+    free(filename);
+    filename = append_filename(pars->outfile1, ".hex", ".pdb");
+    write_pdb(filename, hexcoo);
+    free(filename);
+    filename = append_filename(pars->outfile1, ".hex", ".gnu");
+    write_gnuplot(filename, hexcoo);
     
     free(parfile);
+    for (i=0; i<pars->nuatoms; i++) {
+        free(pars->u_atom[i]);
+    }
+    free(pars->u_atom);
     free(pars);
     free(Mat);
     free_coords(crystcoo);
