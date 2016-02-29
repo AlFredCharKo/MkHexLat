@@ -80,6 +80,39 @@ int cp_coords(const coords *source, coords *dest) {
     return EXIT_SUCCESS;
 }
 
+int cp_ncoords(const coords *source, coords *dest, int n) {
+    int i = 0;
+    
+        // check that source is allocated, else exit function with error
+    if (source == NULL) {
+        return EXIT_FAILURE;
+    }
+        // check that destination is allocated, else exit function with error
+    if (dest == NULL) {
+        return EXIT_FAILURE;
+    }
+        // check that destination has been allocated for at least n atoms
+    if (dest->nat < n) {
+        return EXIT_FAILURE;
+    }
+    
+    for (i=i; i<n; i++) {
+        dest->atom_ptr[i]->n = source->atom_ptr[i]->n;
+        strncpy(dest->atom_ptr[i]->esymb, source->atom_ptr[i]->esymb, 2);
+        dest->atom_ptr[i]->atn = source->atom_ptr[i]->atn;
+        dest->atom_ptr[i]->pnt.x = source->atom_ptr[i]->pnt.x;
+        dest->atom_ptr[i]->pnt.y = source->atom_ptr[i]->pnt.y;
+        dest->atom_ptr[i]->pnt.z = source->atom_ptr[i]->pnt.z;
+    }
+    
+    dest->boxL.x = source->boxL.x;
+    dest->boxL.y = source->boxL.y;
+    dest->boxL.z = source->boxL.z;
+    
+    
+    return EXIT_SUCCESS;
+}
+
 int move2center(coords *given, vec new_origin) {
     int i = 0;
     
@@ -100,7 +133,22 @@ int move2center(coords *given, vec new_origin) {
     return EXIT_SUCCESS;
 }
 
-
+int cp_atom(const atom *source, atom *dest, int v) {
+    
+    if (source == NULL || dest == NULL) {
+        printf("\n***   cp_atom: source OR dest == NULL");
+        return EXIT_FAILURE;
+    }
+    
+    dest->n = v;
+    strncpy(dest->esymb, source->esymb, 2);
+    dest->atn = source->atn;
+    dest->pnt.x = source->pnt.x;
+    dest->pnt.y = source->pnt.y;
+    dest->pnt.z = source->pnt.z;
+        
+    return EXIT_SUCCESS;
+}
 
 int free_coords(coords *given) {
     int i = 0;

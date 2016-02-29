@@ -18,7 +18,9 @@
 
 coords *init_coords(coords *given, int nat, vec boxL);
 int cp_coords(const coords *source, coords *dest);
+int cp_ncoords(const coords *source, coords *dest, int n);
 int move2center(coords *given, vec new_origin);
+int cp_atom(const atom *source, atom *dest, int v);
 int free_coords(coords *given);
 
 #endif /* defined(__MkHexLat__coords_helper__) */
