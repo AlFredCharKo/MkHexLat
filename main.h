@@ -16,6 +16,7 @@
 #include "structs.h"
 #include "defs.h"
 
+#include "coords_helper.h"
 #include "handle_cmdlargs.h"
 #include "read_parfile.h"
 #include "print_pars.h"
@@ -23,6 +24,7 @@
 #include "MakeMat.h"
 #include "gencoo.h"
 #include "trancoo.h"
+#include "cut_hex.h"
 #include "write_coo.h"
 #include "write_gnuplot.h"
 #include "write_pdb.h"

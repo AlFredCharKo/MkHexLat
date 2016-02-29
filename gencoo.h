@@ -14,6 +14,7 @@
 #include <string.h>
 #include <gsl/gsl_rng.h>
 #include "structs.h"
+#include "coords_helper.h"
 #include "anint.h"
 
 coords* gencoo(parameters *pars);

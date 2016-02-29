@@ -14,6 +14,7 @@ int main(int argc, const char * argv[]) {
     char *parfile;
     coords *crystcoo=NULL;
     coords *cartcoo=NULL;
+    coords *hexcoo=NULL;
     int i=0;
     
     printf("\n***   main:argc=%d", argc);
@@ -38,17 +39,16 @@ int main(int argc, const char * argv[]) {
     write_pdb(pars->outfile2, cartcoo);
     write_gnuplot(pars->outfile2, cartcoo);
     
+    hexcoo=cut_hex(cartcoo, pars);
+    write_coo(pars->outfile2, hexcoo);
+    write_pdb(pars->outfile2, hexcoo);
+    write_gnuplot(pars->outfile2, hexcoo);
+    
     free(parfile);
     free(pars);
     free(Mat);
-    for (i=0;i<crystcoo->nat;i++) {
-        free(crystcoo->atom_ptr[i]);
-    }
-    for (i=0;i<cartcoo->nat;i++) {
-        free(cartcoo->atom_ptr[i]);
-    }
-    free(crystcoo);
-    free(cartcoo);
+    free_coords(crystcoo);
+    free_coords(cartcoo);
     
     printf("\n");
     return EXIT_SUCCESS;
