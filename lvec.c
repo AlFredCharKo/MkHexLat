@@ -8,10 +8,18 @@
 
 #include "lvec.h"
 
-double lvec(vec a) {
+double lvecxyz(vec a) {
     double length = 0.0;
     
     length = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+    
+    return length;
+}
+
+double lvecxy(vec a) {
+    double length = 0.0;
+    
+    length = sqrt(a.x * a.x + a.y * a.y);
     
     return length;
 }

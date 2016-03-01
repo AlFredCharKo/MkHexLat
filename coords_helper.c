@@ -41,8 +41,8 @@ coords *init_coords(coords *given, int nat, vec boxL) {
         given->boxL.z = boxL.z;
         
     } else {
-        free_coords(given);
-        given = init_coords(given, nat, boxL);
+            //        free_coords(given);
+            //        given = init_coords(given, nat, boxL);
     }
     return given;
 }
@@ -156,7 +156,7 @@ int free_coords(coords *given) {
     for (i=0;i<given->nat;i++) {
         free(given->atom_ptr[i]);
     }
-    free(given->atom_ptr);
+        //    free(given->atom_ptr);
     free(given);
     return EXIT_SUCCESS;
 }

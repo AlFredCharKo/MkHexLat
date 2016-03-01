@@ -10,6 +10,7 @@
 
 coords* cut_hex(coords *given, parameters *pars) {
     coords *temp = NULL;
+    coords *temp1 = NULL;
     coords *hex = NULL;
     int i = 0, counter = 0;
     double ic = 0.0, oc = 0.0;
@@ -21,7 +22,7 @@ coords* cut_hex(coords *given, parameters *pars) {
         return NULL;
     }
         //coord hex is same size as given and temp and will hold only atoms found to in hexagon (coord hex is actually over allocated)
-    hex = init_coords(temp, given->nat, given->boxL);
+    hex = init_coords(hex, given->nat, given->boxL);
     if (hex == NULL) {
         printf("\n***   cut_hex: could not allocate temp");
         return NULL;
@@ -42,51 +43,51 @@ coords* cut_hex(coords *given, parameters *pars) {
     oc = pars->hex_side;
     counter = 0;
     for (i=0; i<temp->nat; i++) {
-        if (lvec(temp->atom_ptr[i]->pnt) <= ic) {
+        if (lvecxy(temp->atom_ptr[i]->pnt) <= ic) {
             counter++;
-            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter], counter);
+            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter-1], counter);
             continue;
-        } else if (lvec(temp->atom_ptr[i]->pnt) > oc) {
+        } else if (lvecxy(temp->atom_ptr[i]->pnt) > oc) {
             continue;
         } else if ((-1.0 * oc / 2.0) <= temp->atom_ptr[i]->pnt.x && temp->atom_ptr[i]->pnt.x <= (oc / 2.0) && temp->atom_ptr[i]->pnt.y <= ic) {
             counter++;
-            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter], counter);
+            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter-1], counter);
             continue;
         } else if (temp->atom_ptr[i]->pnt.y >= 0.0 && temp->atom_ptr[i]->pnt.x > 0.0 && hex_f1(temp->atom_ptr[i]->pnt.x, oc) >= temp->atom_ptr[i]->pnt.y) {
                 counter++;
-                cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter], counter);
+                cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter-1], counter);
                 continue;
         } else if (temp->atom_ptr[i]->pnt.y >= 0.0 && temp->atom_ptr[i]->pnt.x < 0.0 && hex_f2(temp->atom_ptr[i]->pnt.x, oc) >= temp->atom_ptr[i]->pnt.y) {
             counter++;
-            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter], counter);
+            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter-1], counter);
             continue;
         } else if (temp->atom_ptr[i]->pnt.y < 0.0 && temp->atom_ptr[i]->pnt.x > 0.0 && hex_f3(temp->atom_ptr[i]->pnt.x, oc) <= temp->atom_ptr[i]->pnt.y) {
             counter++;
-            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter], counter);
+            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter-1], counter);
             continue;
         } else if (temp->atom_ptr[i]->pnt.y < 0.0 && temp->atom_ptr[i]->pnt.x < 0.0 && hex_f4(temp->atom_ptr[i]->pnt.x, oc) <= temp->atom_ptr[i]->pnt.y) {
             counter++;
-            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter], counter);
+            cp_atom(temp->atom_ptr[i], hex->atom_ptr[counter-1], counter);
             continue;
         }
     }
     
-    free_coords(temp);
+
     
         //allocate new temp for just as many atoms as were found to be in hexagon
-    temp = init_coords(temp, counter, given->boxL);
-    if (temp == NULL) {
+    temp1 = init_coords(temp1, counter, given->boxL);
+    if (temp1 == NULL) {
         printf("\n***   cut_hex: could not allocate temp");
         return NULL;
     }
-        //copy from hex to temp only the number of atoms that were found in hexagon and skip the remainder
-    if (cp_ncoords(hex, temp, counter) == EXIT_FAILURE) {
+        //copy from hex to temp1 only the number of atoms that were found in hexagon and skip the remainder
+    if (cp_ncoords(hex, temp1, counter) == EXIT_FAILURE) {
         printf("\n***   cut_hex: could not copy coordinates");
         return NULL;
     }
-    
+    free_coords(temp);
     free_coords(hex);
-    return temp;
+    return temp1;
 }
 
 

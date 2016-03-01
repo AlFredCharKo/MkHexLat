@@ -13,6 +13,7 @@
 #include <math.h>
 #include "structs.h"
 
-double lvec(vec vector);
+double lvecxyz(vec vector);
+double lvecxy(vec vector);
 
 #endif /* defined(__MkHexLat__lvec__) */
