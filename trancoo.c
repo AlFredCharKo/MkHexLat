@@ -9,8 +9,7 @@
 #include "trancoo.h"
 
 coords* trancoo(coords *crystcoo, gsl_matrix *Mat) {
-    coords *trancoo=NULL;
-    vec boxL;
+    vec boxL = {.x=0.0, .y=0.0, .z=0.0};
     int i=0;
 
     //get boxlengths in cartesian x,y,z directions from Mat main diagonal (0,0), (1,1), (2,2)
@@ -18,7 +17,7 @@ coords* trancoo(coords *crystcoo, gsl_matrix *Mat) {
     boxL.y = gsl_matrix_get(Mat,1,1);
     boxL.z = gsl_matrix_get(Mat,2,2);
     
-    trancoo = init_coords(trancoo, crystcoo->nat, boxL);
+    coords *trancoo = init_coords(crystcoo->nat, boxL);
     
     for(i=0;i<trancoo->nat;i++) {
         trancoo->atom_ptr[i]->n = i+1;

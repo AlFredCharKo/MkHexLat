@@ -14,7 +14,7 @@ char* handle_cmdlargs(int argc, const char *argv[]) {
     char *parfile=NULL;			//pointer to name of parameter file to read in
 
     if (argc < 2) {
-        parfile=(char*)malloc(strlen(DEFPARFILE)*sizeof(char));
+        parfile=(char*)malloc((strlen(DEFPARFILE)+1)*sizeof(char));
         if (parfile == NULL) {
             printf("\n***   handle_cmdlargs: malloc parfile failed");
             return NULL;
@@ -22,7 +22,7 @@ char* handle_cmdlargs(int argc, const char *argv[]) {
         printf("\n***   handle_cmdlargs: strlen('DEFPARFILE')*sizeof(char)=%zu",strlen(DEFPARFILE)*sizeof(char));
         strcpy(parfile,DEFPARFILE);
     } else {
-        parfile=(char*)malloc(strlen(argv[1])*sizeof(char));
+        parfile=(char*)malloc((strlen(argv[1])+1)*sizeof(char));
         if (parfile == NULL) {
             printf("\n***   handle_cmdlargs: malloc parfile failed");
             return NULL;

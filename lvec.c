@@ -8,6 +8,7 @@
 
 #include "lvec.h"
 
+    //  returns the length of vector in 3D (xyz)
 double lvecxyz(vec a) {
     double length = 0.0;
     
@@ -16,6 +17,7 @@ double lvecxyz(vec a) {
     return length;
 }
 
+    //  returns the length of vector in 2D (xy)
 double lvecxy(vec a) {
     double length = 0.0;
     

@@ -9,8 +9,8 @@
 #include "anint.h"
 
 double anint(double x) {
-    int a;
-    double y;
+    int a = 0;
+    double y = 0.0;
     
     a = (int)x; //a=9
     

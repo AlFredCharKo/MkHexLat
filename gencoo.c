@@ -9,15 +9,14 @@
 #include "gencoo.h"
 
 coords* gencoo(parameters *pars) {
-    coords *crystcoo=NULL;
     int nuatoms=0;
     int h=0, k=0, l=0, i=0;
     double boxh=0.0, boxk=0.0, boxl=0.0, displac;
-    vec rand, boxL;
-    gsl_rng *T;
+    vec rand = {.x=0.0, .y=0.0, .z=0.0};
+    vec boxL = {.x=0.0, .y=0.0, .z=0.0};
     
     //initialize rnd generator
-    T = gsl_rng_alloc (gsl_rng_taus);
+    gsl_rng *T = gsl_rng_alloc (gsl_rng_taus);
     
     
     //initialize crystcoo to hold coordinates, atomic numbers and element symbols for crystal in crystal's native coordinates
@@ -25,7 +24,7 @@ coords* gencoo(parameters *pars) {
     boxL.x = (double)pars->nh * pars->u_latt.x;
     boxL.y = (double)pars->nk * pars->u_latt.y;
     boxL.z = (double)pars->nl * pars->u_latt.z;
-    crystcoo = init_coords(crystcoo, nuatoms, boxL);
+    coords *crystcoo = init_coords(nuatoms, boxL);
     
 
     displac = pars->displac;
@@ -63,5 +62,6 @@ coords* gencoo(parameters *pars) {
         crystcoo->atom_ptr[i]->pnt.y = crystcoo->atom_ptr[i]->pnt.y - anint(crystcoo->atom_ptr[i]->pnt.y);
         crystcoo->atom_ptr[i]->pnt.z = crystcoo->atom_ptr[i]->pnt.z - anint(crystcoo->atom_ptr[i]->pnt.z);
     }
+    gsl_rng_free(T);
     return crystcoo;
 }

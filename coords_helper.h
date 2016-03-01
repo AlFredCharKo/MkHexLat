@@ -16,7 +16,7 @@
 #include "structs.h"
 
 
-coords *init_coords(coords *given, int nat, vec boxL);
+coords *init_coords(int nat, vec boxL);
 int cp_coords(const coords *source, coords *dest);
 int cp_ncoords(const coords *source, coords *dest, int n);
 int move2center(coords *given, vec new_origin);

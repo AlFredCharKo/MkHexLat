@@ -8,42 +8,38 @@
 
 #include "coords_helper.h"
 
-coords *init_coords(coords *given, int nat, vec boxL) {
+coords *init_coords(int nat, vec boxL) {
     int i = 0;
     
-    if  (given == NULL) {
-        given = (coords*)malloc(sizeof(coords));
-        if (given == NULL) {
-            printf("\n***   init_coords: malloc failed");
-            return NULL;
-        }
-        given->atom_ptr = (atom**)malloc(nat * sizeof(atom*));
-        if (given->atom_ptr == NULL) {
-            printf("\n***   init_coords: malloc failed");
-            return NULL;
-        }
-        for (i=0; i<nat; i++) {
-            given->atom_ptr[i] = (atom*)malloc(sizeof(atom));
-            if (given->atom_ptr[i] == NULL) {
-                printf("\n***   init_coords: malloc failed");
-                return NULL;
-            }
-            given->atom_ptr[i]->n = i+1;
-            strncpy(given->atom_ptr[i]->esymb, "XX", 2);
-            given->atom_ptr[i]->atn = -1;
-            given->atom_ptr[i]->pnt.x = 0.0;
-            given->atom_ptr[i]->pnt.y = 0.0;
-            given->atom_ptr[i]->pnt.z = 0.0;
-        }
-        given->nat = nat;
-        given->boxL.x = boxL.x;
-        given->boxL.y = boxL.y;
-        given->boxL.z = boxL.z;
-        
-    } else {
-            //        free_coords(given);
-            //        given = init_coords(given, nat, boxL);
+    coords *given = (coords*)calloc(1, sizeof(coords));
+    if (given == NULL) {
+        printf("\n***   init_coords: malloc failed");
+        return NULL;
     }
+    given->atom_ptr = (atom**)calloc(nat, sizeof(atom*));
+    if (given->atom_ptr == NULL) {
+        printf("\n***   init_coords: malloc failed");
+        return NULL;
+    }
+    for (i=0; i<nat; i++) {
+        given->atom_ptr[i] = (atom*)calloc(1, sizeof(atom));
+        if (given->atom_ptr[i] == NULL) {
+            printf("\n***   init_coords: malloc failed");
+            return NULL;
+        }
+        given->atom_ptr[i]->n = i+1;
+        strncpy(given->atom_ptr[i]->esymb, "XX", 2);
+        given->atom_ptr[i]->atn = -1;
+        given->atom_ptr[i]->pnt.x = 0.0;
+        given->atom_ptr[i]->pnt.y = 0.0;
+        given->atom_ptr[i]->pnt.z = 0.0;
+    }
+    given->nat = nat;
+    given->boxL.x = boxL.x;
+    given->boxL.y = boxL.y;
+    given->boxL.z = boxL.z;
+        
+
     return given;
 }
 
@@ -63,7 +59,7 @@ int cp_coords(const coords *source, coords *dest) {
         return EXIT_FAILURE;
     }
     
-    for (i=i; i<source->nat; i++) {
+    for (i=0; i<source->nat; i++) {
         dest->atom_ptr[i]->n = source->atom_ptr[i]->n;
         strncpy(dest->atom_ptr[i]->esymb, source->atom_ptr[i]->esymb, 2);
         dest->atom_ptr[i]->atn = source->atom_ptr[i]->atn;
@@ -96,7 +92,7 @@ int cp_ncoords(const coords *source, coords *dest, int n) {
         return EXIT_FAILURE;
     }
     
-    for (i=i; i<n; i++) {
+    for (i=0; i<n; i++) {
         dest->atom_ptr[i]->n = source->atom_ptr[i]->n;
         strncpy(dest->atom_ptr[i]->esymb, source->atom_ptr[i]->esymb, 2);
         dest->atom_ptr[i]->atn = source->atom_ptr[i]->atn;
@@ -156,7 +152,7 @@ int free_coords(coords *given) {
     for (i=0;i<given->nat;i++) {
         free(given->atom_ptr[i]);
     }
-        //    free(given->atom_ptr);
+    free(given->atom_ptr);
     free(given);
     return EXIT_SUCCESS;
 }

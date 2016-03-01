@@ -38,6 +38,7 @@ typedef struct {
     double displac;
     vec hex_origin;
     double hex_side;
+    double hex_height;
     char *parfile;
     char *outfile1;
     int nuatoms;

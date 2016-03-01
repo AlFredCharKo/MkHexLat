@@ -12,7 +12,7 @@ int write_coo(char *filename, coords *coo) {
     FILE *FP;
     int i=0;
     
-    printf("write_coo: filename = %s",filename);
+    printf("\nwrite_coo: filename = %s",filename);
     
     if (coo == NULL) return EXIT_FAILURE;
        
