@@ -84,8 +84,8 @@ coords* cut_hex(coords *given, parameters *pars) {
         printf("\n***   cut_hex: could not copy coordinates");
         return NULL;
     }
-    free_coords(temp);
-    free_coords(hex);
+    coords_free(temp);
+    coords_free(hex);
     return temp1;
 }
 

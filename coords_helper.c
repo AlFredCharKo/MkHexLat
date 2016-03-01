@@ -146,7 +146,7 @@ int cp_atom(const atom *source, atom *dest, int v) {
     return EXIT_SUCCESS;
 }
 
-int free_coords(coords *given) {
+int coords_free(coords *given) {
     int i = 0;
     
     for (i=0;i<given->nat;i++) {

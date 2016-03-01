@@ -17,6 +17,7 @@
 #include "defs.h"
 
 #include "coords_helper.h"
+#include "pars_helper.h"
 #include "handle_cmdlargs.h"
 #include "read_parfile.h"
 #include "print_pars.h"
